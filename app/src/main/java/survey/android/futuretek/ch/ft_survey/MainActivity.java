@@ -26,6 +26,7 @@ public class MainActivity extends BaseActivity {
         setContentView(R.layout.activity_main);
         getWindow().setBackgroundDrawable(new ColorDrawable(Color.BLACK));
 
+
         nextBtn = (Button) findViewById(R.id.nextBtn);
         nextBtn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
@@ -57,7 +58,7 @@ public class MainActivity extends BaseActivity {
                 public void done() {
                     Button nextBtn = ((Button) findViewById(R.id.nextBtn));
                     nextBtn.setTextColor(Color.GREEN);
-                    nextBtn.setEnabled(true);
+                    nextBtn.setEnabled(false);
                 }
             });
         }else{
@@ -78,7 +79,9 @@ public class MainActivity extends BaseActivity {
             openInputDialog(new View.OnClickListener() {
                 public void onClick(View v) {
                     EditText userInput = ((EditText) v.findViewById(R.id.userInput));
-                    userName = null;
+                    //1. Convert editText to string
+                    String userName = userInput.getText().toString();
+
                     try {
                         userName = getDatabase().get("usersName");
                     } catch (Exception e) {
@@ -89,7 +92,8 @@ public class MainActivity extends BaseActivity {
                         textArray.add("Didn't get your name...");
                         animateText(textArray, new AnimationListDone() {
                             public void done() {
-                                activateNextButton();
+                                //2. Desactive next button
+                                //activateNextButton();
                             }
                         });
                     } else {
